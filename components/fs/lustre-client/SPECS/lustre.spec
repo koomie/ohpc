@@ -15,7 +15,7 @@
 %include %{_sourcedir}/OHPC_macros
 %{!?PROJ_DELIM: %global PROJ_DELIM -ohpc}
 
-
+#!BuildIgnore: post-build-checks
 
 %if 0%{?OHPC_BUILD}
 
@@ -47,7 +47,7 @@ BuildRequires: kernel-devel = %{centos_kernel}
 
 %endif
 BuildRequires:	-post-build-checks
-#!BuildIgnore: post-build-checks
+
 
 %endif
 
