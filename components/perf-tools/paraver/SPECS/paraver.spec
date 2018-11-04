@@ -42,6 +42,8 @@ BuildRequires: libtool%{PROJ_DELIM}
 BuildRequires: binutils-devel
 BuildRequires: libxml2-devel
 
+#define __arch_install_post %{nil}
+
 # Default library install path
 %define install_path %{OHPC_LIBS}/%{compiler_family}/%{mpi_family}/%{pname}/%version
 
@@ -69,7 +71,8 @@ CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --with-wx-config=/usr/bin/wx-config "
 %endif
 
 
-./configure --with-paraver=%{install_path} --prefix=%{install_path} --with-boost=$BOOST_DIR $CONFIGURE_OPTIONS
+#./configure --with-paraver=%{install_path} --prefix=%{install_path} --with-boost=$BOOST_DIR $CONFIGURE_OPTIONS
+./configure --prefix=%{install_path} --with-boost=$BOOST_DIR $CONFIGURE_OPTIONS
 
 
 #cd $RPM_BUILD_DIR/%{pname}-%{version}/src/paraver-kernel/
@@ -78,10 +81,9 @@ make %{?_smp_mflags}
 
 #make DESTDIR=$RPM_BUILD_ROOT install
 
-
 #cd $RPM_BUILD_DIR/%{pname}-%{version}/
 
-make %{?_smp_mflags}
+#make %{?_smp_mflags}
 
 
 %install
