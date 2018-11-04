@@ -14,7 +14,7 @@
 %include %{_sourcedir}/OHPC_macros
 
 # Base package name
-%define pname wxparaver
+%define pname paraver
 
 Summary:	Paraver
 Name:		%{pname}-%{compiler_family}-%{mpi_family}%{PROJ_DELIM}
@@ -26,6 +26,8 @@ URL:		https://tools.bsc.es
 Source0:	https://ftp.tools.bsc.es/wxparaver/wxparaver-%{version}-src.tar.bz2
 
 BuildRequires: boost-%{compiler_family}-%{mpi_family}%{PROJ_DELIM}
+Requires: boost-%{compiler_family}-%{mpi_family}%{PROJ_DELIM}
+
 BuildRequires: bison
 %if 0%{?suse_version}
 BuildRequires: flex
@@ -37,19 +39,23 @@ BuildRequires: wxGTK3-devel
 BuildRequires: autoconf%{PROJ_DELIM}
 BuildRequires: automake%{PROJ_DELIM}
 BuildRequires: libtool%{PROJ_DELIM}
-BuildRequires:	binutils-devel
-BuildRequires:	libxml2-devel
+BuildRequires: binutils-devel
+BuildRequires: libxml2-devel
 
 # Default library install path
 %define install_path %{OHPC_LIBS}/%{compiler_family}/%{mpi_family}/%{pname}/%version
 
-%description
-Paraver was developed to respond to the need to have a qualitative global perception of the application behavior by visual inspection and then to be able to focus on the detailed quantitative analysis of the problems. Expressive power, flexibility and the capability of efficiently handling large traces are key features addressed in the design of Paraver. The clear and modular structure of Paraver plays a significant role towards achieving these targets.
+%description 
+Paraver was developed to respond to the need to have a qualitative
+global perception of the application behavior by visual inspection and then to
+be able to focus on the detailed quantitative analysis of the
+problems. Expressive power, flexibility and the capability of efficiently
+handling large traces are key features addressed in the design of Paraver. The
+clear and modular structure of Paraver plays a significant role towards
+achieving these targets.
 
 %prep
-%setup -q -n %{pname}-%{version}
-
-
+%setup -q -n wxparaver-%{version}
 
 %build
 %ohpc_setup_compiler
@@ -63,26 +69,24 @@ CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --with-wx-config=/usr/bin/wx-config "
 %endif
 
 
-./configure --with-paraver=$RPM_BUILD_ROOT%{install_path} --prefix=%{install_path} --with-boost=$BOOST_DIR $CONFIGURE_OPTIONS
+./configure --with-paraver=%{install_path} --prefix=%{install_path} --with-boost=$BOOST_DIR $CONFIGURE_OPTIONS
 
 
-cd $RPM_BUILD_DIR/%{pname}-%{version}/src/paraver-kernel/
-
-make %{?_smp_mflags}
-
-make DESTDIR=$RPM_BUILD_ROOT install
-
-
-cd $RPM_BUILD_DIR/%{pname}-%{version}/
+#cd $RPM_BUILD_DIR/%{pname}-%{version}/src/paraver-kernel/
 
 make %{?_smp_mflags}
 
-make DESTDIR=$RPM_BUILD_ROOT install
+#make DESTDIR=$RPM_BUILD_ROOT install
+
+
+#cd $RPM_BUILD_DIR/%{pname}-%{version}/
+
+make %{?_smp_mflags}
 
 
 %install
+make DESTDIR=$RPM_BUILD_ROOT install
 export NO_BRP_CHECK_RPATH=true
-
 
 # OpenHPC module file
 %{__mkdir} -p %{buildroot}%{OHPC_MODULEDEPS}/%{compiler_family}-%{mpi_family}/%{pname}
