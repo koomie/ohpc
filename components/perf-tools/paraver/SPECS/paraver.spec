@@ -59,7 +59,6 @@ achieving these targets.
 
 %build
 %ohpc_setup_compiler
-module load boost
 
 %if 0%{?centos_version} || 0%{?rhel}
 CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --with-wx-config=/usr/bin/wx-config-3.0 "
