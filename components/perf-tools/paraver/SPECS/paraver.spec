@@ -40,7 +40,7 @@ BuildRequires: libtool%{PROJ_DELIM}
 BuildRequires: binutils-devel
 BuildRequires: libxml2-devel
 
-#define __arch_install_post %{nil}
+%define __arch_install_post %{nil}
 
 # Default library install path
 %define install_path %{OHPC_UTILS}/%{pname}/%version
