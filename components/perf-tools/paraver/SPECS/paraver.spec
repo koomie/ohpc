@@ -66,26 +66,20 @@ CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --with-wx-config=/usr/bin/wx-config-3.0 "
 CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --with-wx-config=/usr/bin/wx-config "
 %endif
 
-
-#./configure --with-paraver=%{install_path} --prefix=%{install_path} --with-boost=$BOOST_DIR $CONFIGURE_OPTIONS
 ./configure --prefix=%{install_path} $CONFIGURE_OPTIONS \
     --with-boost-libdir=/usr/lib64 \
     CXXFLAGS=-I$RPM_BUILD_ROOT/%{install_path}/include \
     LDFLAGS=-L$RPM_BUILD_ROOT/%{install_path}/lib/paraver-kernel
 
-# 2-stage Build:
-#
-# first we have to build and install paraver-kernel
+# 2-stage build process: first, we have to build and install paraver-kernel
 
 cd $RPM_BUILD_DIR/wxparaver-%{version}/src/paraver-kernel/
 make %{?_smp_mflags}
-#make install
 make DESTDIR=$RPM_BUILD_ROOT install
 
 # next, build paraver gui
 cd $RPM_BUILD_DIR/wxparaver-%{version}/
 make %{?_smp_mflags}
-
 
 %install
 make DESTDIR=$RPM_BUILD_ROOT install
@@ -116,6 +110,7 @@ prepend-path    INCLUDE             %{install_path}/include
 prepend-path	LD_LIBRARY_PATH	    %{install_path}/lib
 
 setenv          %{PNAME}_DIR        %{install_path}
+setenv          %{PNAME}_BIN        %{install_path}/bin
 setenv          %{PNAME}_LIB        %{install_path}/lib
 setenv          %{PNAME}_INC        %{install_path}/include
 
