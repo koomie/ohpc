@@ -79,8 +79,8 @@ CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --with-wx-config=/usr/bin/wx-config "
 
 cd $RPM_BUILD_DIR/wxparaver-%{version}/src/paraver-kernel/
 make %{?_smp_mflags}
-make install
-#make DESTDIR=$RPM_BUILD_ROOT install
+#make install
+make DESTDIR=$RPM_BUILD_ROOT install
 
 # next, build paraver gui
 cd $RPM_BUILD_DIR/wxparaver-%{version}/
