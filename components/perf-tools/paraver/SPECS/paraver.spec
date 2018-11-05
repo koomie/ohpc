@@ -68,7 +68,10 @@ CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --with-wx-config=/usr/bin/wx-config "
 
 
 #./configure --with-paraver=%{install_path} --prefix=%{install_path} --with-boost=$BOOST_DIR $CONFIGURE_OPTIONS
-./configure --prefix=%{install_path} --with-boost=$BOOST_DIR $CONFIGURE_OPTIONS --with-boost-libdir=/usr/lib64
+./configure --prefix=%{install_path} $CONFIGURE_OPTIONS \
+    --with-boost-libdir=/usr/lib64 \
+    CXXFLAGS=-I$RPM_BUILD_ROOT/%{install_path}/include \
+    LDFLAGS=-L$RPM_BUILD_ROOT/%{install_path}/lib/paraver-kernel
 
 # 2-stage Build:
 #
