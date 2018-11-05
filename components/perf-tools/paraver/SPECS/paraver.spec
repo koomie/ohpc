@@ -58,7 +58,6 @@ achieving these targets.
 %setup -q -n wxparaver-%{version}
 
 %build
-%ohpc_setup_compiler
 
 %if 0%{?centos_version} || 0%{?rhel}
 CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --with-wx-config=/usr/bin/wx-config-3.0 "
@@ -75,12 +74,12 @@ CONFIGURE_OPTIONS="$CONFIGURE_OPTIONS --with-wx-config=/usr/bin/wx-config "
 #
 # first we have to build and install paraver-kernel
 
-cd $RPM_BUILD_DIR/%{pname}-%{version}/src/paraver-kernel/
+cd $RPM_BUILD_DIR/wxparaver-%{version}/src/paraver-kernel/
 make %{?_smp_mflags}
 make DESTDIR=$RPM_BUILD_ROOT install
 
 # next, build paraver gui
-cd $RPM_BUILD_DIR/%{pname}-%{version}/
+cd $RPM_BUILD_DIR/wxparaver-%{version}/
 make %{?_smp_mflags}
 
 
