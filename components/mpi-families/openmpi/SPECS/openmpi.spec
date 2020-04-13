@@ -15,7 +15,7 @@
 
 # Base package name/config
 %define pname openmpi4
-%define with_openib 1
+%define with_openib 0
 
 %ifarch aarch64 || ppc64le
 %define with_psm 0
