@@ -33,6 +33,7 @@
 %{!?with_slurm: %define with_slurm 0}
 %{!?with_tm: %global with_tm 1}
 %{!?with_pmix: %define with_pmix 0}
+%{!?with_ucx: %define with_ucx 1}
 
 Summary:   A powerful implementation of MPI/SHMEM
 
@@ -62,6 +63,10 @@ BuildRequires:  numactl
 %if 0%{with_pmix}
 BuildRequires:  pmix%{PROJ_DELIM}
 BuildRequires:  libevent-devel
+%endif
+%if 0%{with_ucx}
+BuildRequires:  ucx%{PROJ_DELIM}
+Requires:       ucx%{PROJ_DELIM}
 %endif
 BuildRequires:  hwloc-devel
 %if 0%{?rhel}
@@ -147,6 +152,10 @@ BASEFLAGS="$BASEFLAGS --with-libevent=external --with-hwloc=external"
 %if %{with_psm}
   BASEFLAGS="$BASEFLAGS --with-psm"
 %endif
+%if 0%{with_ucx}
+module load ucx
+BASEFLAGS="$BASEFLAGS --with-ucx=${UCX_DIR} --enable-mca-no-build=btl-uct"
+%endif
 %if %{with_psm2}
   BASEFLAGS="$BASEFLAGS --with-psm2"
 %endif
@@ -214,7 +223,9 @@ prepend-path    MANPATH             %{install_path}/share/man
 prepend-path	LD_LIBRARY_PATH	    %{install_path}/lib
 prepend-path    MODULEPATH          %{OHPC_MODULEDEPS}/%{compiler_family}-%{pname}
 prepend-path    PKG_CONFIG_PATH     %{install_path}/lib/pkgconfig
-
+%if 0%{with_ucx}
+depends-on ucx
+%endif
 family "MPI"
 EOF
 
