@@ -25,10 +25,16 @@ BuildRequires:  pmix%{PROJ_DELIM}
 BuildRequires: libevent-devel
 %endif
 
-%{!?with_ucx: %define with_ucx 1}
+%{!?with_ucx: %define with_ucx 0}
 %if 0%{with_ucx}
 BuildRequires: ucx%{PROJ_DELIM}
 Requires: ucx%{PROJ_DELIM}
+%endif
+
+%{!?with_ucx: %define with_ofi 1}
+%if 0%{with_ofi}
+BuildRequires: libfabric-devel
+Requires: libfabric
 %endif
 
 # Base package name
@@ -98,6 +104,9 @@ module load ucx
 %endif
 %if 0%{with_ucx}
             --with-device=ch4:ucx --with-ucx=$UCX_DIR \
+%endif
+%if 0%{with_ofi}
+            --with-device=ch4:ofi \
 %endif
     || { cat config.log && exit 1; }
 
