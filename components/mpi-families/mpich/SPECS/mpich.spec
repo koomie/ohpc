@@ -31,7 +31,7 @@ BuildRequires: ucx%{PROJ_DELIM}
 Requires: ucx%{PROJ_DELIM}
 %endif
 
-%{!?with_ucx: %define with_ofi 1}
+%{!?with_ofi: %define with_ofi 1}
 %if 0%{with_ofi}
 BuildRequires: libfabric-devel
 Requires: libfabric
