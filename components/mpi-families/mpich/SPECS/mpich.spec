@@ -106,7 +106,7 @@ module load ucx
             --with-device=ch4:ucx --with-ucx=$UCX_DIR \
 %endif
 %if 0%{with_ofi}
-            --with-device=ch4:ofi \
+            --with-device=ch4:ofi --with-libfabric \
 %endif
     || { cat config.log && exit 1; }
 
