@@ -23,7 +23,7 @@
 
 %include %{_sourcedir}/OHPC_macros
 %undefine _annotated_build
-unset _build_id_links
+%undefine _build_id_links
 
 # Base package name
 %define pname ucx
