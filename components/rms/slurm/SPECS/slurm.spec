@@ -13,7 +13,6 @@
 %global _with_pmix --with-pmix=%{OHPC_ADMIN}/pmix
 %global _with_hwloc 1
 %global _with_numa 1
-BuildRequires: pmix%{PROJ_DELIM}
 
 %define pname slurm
 
@@ -97,6 +96,10 @@ BuildRequires: munge-devel
 BuildRequires: python3
 BuildRequires: readline-devel
 Obsoletes: slurm-lua%{PROJ_DELIM} slurm-munge%{PROJ_DELIM} slurm-plugins%{PROJ_DELIM}
+
+# include ohpc build of pmix
+Requires: pmix%{PROJ_DELIM}
+BuildRequires: pmix%{PROJ_DELIM}
 
 #!BuildIgnore: post-build-checks
 
