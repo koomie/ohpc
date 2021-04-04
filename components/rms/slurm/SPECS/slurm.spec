@@ -13,6 +13,7 @@
 %global _with_pmix --with-pmix=%{OHPC_ADMIN}/pmix
 %global _with_hwloc 1
 %global _with_numa 1
+BuildRequires: pmix%{PROJ_DELIM}
 
 %define pname slurm
 
